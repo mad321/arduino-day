@@ -1,0 +1,1015 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="أمان AI — مساعد ذكاء اصطناعي متخصص في الامتثال لاشتراطات الدفاع المدني ووزارة الموارد البشرية في المملكة العربية السعودية">
+<title>أمان AI — مساعد الامتثال للسلامة</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* ── Variables ─────────────────────────────────────────────────────── */
+:root {
+  --bg-0: #070b12;
+  --bg-1: #0c1220;
+  --bg-2: #101828;
+  --bg-card: #131d2e;
+  --bg-card-h: #192437;
+  --cyan: #00e5ff;
+  --cyan-10: rgba(0,229,255,.10);
+  --cyan-20: rgba(0,229,255,.20);
+  --cyan-30: rgba(0,229,255,.30);
+  --orange: #ff6b35;
+  --orange-10: rgba(255,107,53,.10);
+  --orange-25: rgba(255,107,53,.25);
+  --green: #22c55e;
+  --green-10: rgba(34,197,94,.10);
+  --text: #eef2f8;
+  --text-2: #94a3b8;
+  --text-3: #60748f;
+  --border: rgba(0,229,255,.12);
+  --radius: 14px;
+  --radius-sm: 8px;
+  --shadow: 0 4px 32px rgba(0,0,0,.45);
+  --font: 'IBM Plex Sans Arabic', sans-serif;
+}
+
+/* ── Reset ─────────────────────────────────────────────────────────── */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;font-size:16px}
+body{font-family:var(--font);background:var(--bg-0);color:var(--text);line-height:1.7;overflow-x:hidden}
+a{color:var(--cyan);text-decoration:none}
+img{display:block;max-width:100%}
+button{cursor:pointer;font-family:var(--font)}
+ul{list-style:none}
+
+/* ── Container ─────────────────────────────────────────────────────── */
+.container{width:100%;max-width:1160px;margin-inline:auto;padding-inline:20px}
+
+/* ── Scroll Animation ──────────────────────────────────────────────── */
+.aos{opacity:0;transform:translateY(36px);transition:opacity .7s ease,transform .7s ease}
+.aos.visible{opacity:1;transform:translateY(0)}
+.aos-delay-1{transition-delay:.1s}
+.aos-delay-2{transition-delay:.2s}
+.aos-delay-3{transition-delay:.3s}
+.aos-delay-4{transition-delay:.4s}
+.aos-left{opacity:0;transform:translateX(-36px);transition:opacity .7s ease,transform .7s ease}
+.aos-right{opacity:0;transform:translateX(36px);transition:opacity .7s ease,transform .7s ease}
+.aos-left.visible,.aos-right.visible{opacity:1;transform:translateX(0)}
+
+/* ── Header ─────────────────────────────────────────────────────────── */
+header{position:fixed;top:0;inset-inline:0;z-index:999;background:rgba(7,11,18,.85);backdrop-filter:blur(16px);border-bottom:1px solid var(--border)}
+.header-inner{display:flex;align-items:center;justify-content:space-between;height:64px}
+.logo{font-size:1.35rem;font-weight:700;letter-spacing:-.5px;color:var(--text);display:flex;align-items:center;gap:6px}
+.logo .ai-badge{color:var(--cyan);font-weight:700;font-size:1rem;background:var(--cyan-10);border:1px solid var(--cyan-20);border-radius:6px;padding:1px 7px;line-height:1.6}
+#lang-btn{background:var(--bg-card);border:1px solid var(--border);color:var(--text-2);font-size:.875rem;font-weight:500;padding:7px 16px;border-radius:20px;transition:all .25s;letter-spacing:.3px}
+#lang-btn:hover{border-color:var(--cyan);color:var(--cyan)}
+
+/* ── Hero ────────────────────────────────────────────────────────────── */
+.hero{position:relative;min-height:100vh;display:flex;align-items:center;padding-top:64px;overflow:hidden}
+.hero-bg{position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 50% 0%,rgba(0,229,255,.07) 0%,transparent 70%),radial-gradient(ellipse 60% 80% at 80% 100%,rgba(255,107,53,.05) 0%,transparent 60%)}
+.hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(0,229,255,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(0,229,255,.04) 1px,transparent 1px);background-size:44px 44px;mask-image:radial-gradient(ellipse 90% 90% at 50% 50%,black 0%,transparent 100%)}
+.hero-inner{position:relative;display:grid;grid-template-columns:1fr;gap:56px;align-items:center;padding-block:80px 60px}
+@media(min-width:900px){.hero-inner{grid-template-columns:1fr 1fr}}
+.hero-content{display:flex;flex-direction:column;gap:24px}
+.urgency-badge{display:inline-flex;align-items:center;gap:8px;background:var(--orange-10);border:1px solid var(--orange-25);color:var(--orange);font-size:.85rem;font-weight:600;padding:7px 14px;border-radius:20px;width:fit-content;animation:pulse-badge 2.5s ease-in-out infinite}
+@keyframes pulse-badge{0%,100%{box-shadow:0 0 0 0 var(--orange-25)}50%{box-shadow:0 0 0 6px transparent}}
+.hero h1{font-size:clamp(1.6rem,4vw,2.7rem);font-weight:700;line-height:1.35;color:var(--text)}
+.hero h1 em{font-style:normal;color:var(--cyan)}
+.hero-sub{font-size:1.05rem;color:var(--text-2);line-height:1.8;max-width:520px}
+.hero-ctas{display:flex;flex-direction:column;gap:10px;align-items:flex-start}
+.btn-primary{display:inline-flex;align-items:center;justify-content:center;gap:8px;background:var(--cyan);color:#070b12;font-size:1rem;font-weight:700;padding:14px 28px;border-radius:10px;border:none;transition:all .25s;letter-spacing:.3px;box-shadow:0 0 32px var(--cyan-20)}
+.btn-primary:hover{background:#00cfea;box-shadow:0 0 48px var(--cyan-30);transform:translateY(-2px)}
+.cta-note{font-size:.8rem;color:var(--text-3)}
+
+/* ── Hero Visual ─────────────────────────────────────────────────────── */
+.hero-visual{display:flex;justify-content:center;align-items:center}
+.compliance-card{background:var(--bg-card);border:1px solid var(--border);border-radius:20px;padding:28px;width:100%;max-width:380px;box-shadow:var(--shadow),0 0 80px rgba(0,229,255,.05)}
+.compliance-card-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px}
+.card-logo{font-size:.95rem;font-weight:700;color:var(--text-2)}
+.card-status{display:flex;align-items:center;gap:6px;font-size:.78rem;color:var(--green);background:var(--green-10);padding:4px 10px;border-radius:12px}
+.dot-live{width:7px;height:7px;background:var(--green);border-radius:50%;animation:blink 1.4s ease-in-out infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
+.compliance-rows{display:flex;flex-direction:column;gap:12px}
+.comp-row{display:flex;align-items:center;justify-content:space-between;background:var(--bg-2);border:1px solid var(--border);border-radius:10px;padding:12px 14px}
+.comp-row-info{display:flex;align-items:center;gap:10px;flex:1}
+.comp-icon{font-size:1.2rem;flex-shrink:0}
+.comp-label{font-size:.82rem;color:var(--text-2);line-height:1.3}
+.comp-label strong{display:block;color:var(--text);font-size:.88rem;margin-bottom:1px}
+.comp-pct{font-size:.95rem;font-weight:700;color:var(--cyan)}
+.comp-bar-wrap{height:4px;background:rgba(255,255,255,.08);border-radius:2px;margin-top:6px}
+.comp-bar{height:4px;border-radius:2px;background:linear-gradient(90deg,var(--orange),var(--cyan));animation:grow-bar 1.2s ease forwards}
+@keyframes grow-bar{from{width:0}}
+.ai-chat-preview{margin-top:16px;background:var(--bg-2);border:1px solid var(--border);border-radius:10px;padding:12px 14px}
+.chat-q{font-size:.78rem;color:var(--text-3);margin-bottom:6px}
+.chat-a{font-size:.82rem;color:var(--cyan);line-height:1.5}
+.chat-cursor{display:inline-block;width:2px;height:.85em;background:var(--cyan);border-radius:1px;animation:cursor-blink .8s step-end infinite;vertical-align:middle;margin-inline-start:2px}
+@keyframes cursor-blink{0%,100%{opacity:1}50%{opacity:0}}
+
+/* ── Section Base ────────────────────────────────────────────────────── */
+section{padding-block:80px}
+.section-label{display:inline-flex;align-items:center;gap:6px;font-size:.78rem;font-weight:600;letter-spacing:1px;text-transform:uppercase;color:var(--cyan);margin-bottom:12px}
+.section-title{font-size:clamp(1.5rem,3vw,2.1rem);font-weight:700;color:var(--text);margin-bottom:12px}
+.section-sub{font-size:1rem;color:var(--text-2);max-width:560px;margin-bottom:48px}
+.text-center{text-align:center}
+.text-center .section-sub{margin-inline:auto}
+
+/* ── Pain Points ─────────────────────────────────────────────────────── */
+.pain-points{background:var(--bg-1)}
+.pain-grid{display:grid;grid-template-columns:1fr;gap:20px}
+@media(min-width:700px){.pain-grid{grid-template-columns:repeat(3,1fr)}}
+.pain-card{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);padding:28px;display:flex;flex-direction:column;gap:14px;transition:border-color .3s,transform .3s,box-shadow .3s}
+.pain-card:hover{border-color:var(--orange-25);transform:translateY(-4px);box-shadow:0 12px 40px rgba(255,107,53,.08)}
+.pain-card-top{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}
+.pain-icon{font-size:2rem;line-height:1}
+.pain-tag{font-size:.72rem;font-weight:600;color:var(--orange);background:var(--orange-10);border:1px solid var(--orange-25);padding:3px 9px;border-radius:12px;white-space:nowrap}
+.pain-card h3{font-size:1.2rem;font-weight:700;color:var(--text)}
+.pain-card p{font-size:.9rem;color:var(--text-2);line-height:1.75}
+
+/* ── Features ────────────────────────────────────────────────────────── */
+.features{background:var(--bg-0)}
+.steps-grid{display:grid;grid-template-columns:1fr;gap:24px}
+@media(min-width:600px){.steps-grid{grid-template-columns:repeat(2,1fr)}}
+@media(min-width:1000px){.steps-grid{grid-template-columns:repeat(4,1fr)}}
+.step-card{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);padding:28px;display:flex;flex-direction:column;gap:14px;position:relative;overflow:hidden;transition:border-color .3s,transform .3s}
+.step-card::before{content:'';position:absolute;inset-inline-start:0;inset-block-start:0;inset-block-end:0;width:3px;background:linear-gradient(180deg,var(--cyan),var(--cyan-10));border-radius:0 0 0 var(--radius)}
+[dir="ltr"] .step-card::before{inset-inline-start:auto;inset-inline-end:auto;inset-block-start:0;inset-block-end:auto;width:3px;height:100%}
+.step-card:hover{border-color:var(--cyan-20);transform:translateY(-4px)}
+.step-num{font-size:.75rem;font-weight:700;color:var(--cyan);letter-spacing:1px;text-transform:uppercase}
+.step-card h3{font-size:1rem;font-weight:700;color:var(--text);line-height:1.45}
+.step-example{font-size:.82rem;color:var(--text-3);background:var(--bg-0);border:1px solid var(--border);border-radius:var(--radius-sm);padding:10px 12px;line-height:1.6;font-style:italic}
+
+/* ── Coverage ────────────────────────────────────────────────────────── */
+.coverage{background:var(--bg-1)}
+.coverage-grid{display:grid;grid-template-columns:1fr;gap:20px}
+@media(min-width:700px){.coverage-grid{grid-template-columns:1fr 1fr}}
+.coverage-col{background:var(--bg-card);border-radius:var(--radius);padding:28px}
+.coverage-col-a{border:1px solid rgba(255,107,53,.25)}
+.coverage-col-b{border:1px solid rgba(34,197,94,.25)}
+.cov-header{display:flex;align-items:center;gap:12px;margin-bottom:20px;padding-bottom:16px;border-bottom:1px solid var(--border)}
+.cov-icon{font-size:1.6rem}
+.cov-title{font-size:1.05rem;font-weight:700;color:var(--text)}
+.cov-items{display:flex;flex-direction:column;gap:10px}
+.cov-item{display:flex;align-items:flex-start;gap:10px;font-size:.9rem;color:var(--text-2)}
+.cov-check-a{color:var(--orange);font-weight:700;flex-shrink:0;margin-top:2px}
+.cov-check-b{color:var(--green);font-weight:700;flex-shrink:0;margin-top:2px}
+
+/* ── Testimonials ────────────────────────────────────────────────────── */
+.testimonials{background:var(--bg-0)}
+.testi-grid{display:grid;grid-template-columns:1fr;gap:20px}
+@media(min-width:700px){.testi-grid{grid-template-columns:repeat(3,1fr)}}
+.testi-card{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);padding:28px;display:flex;flex-direction:column;gap:16px;transition:border-color .3s,transform .3s}
+.testi-card:hover{border-color:var(--cyan-20);transform:translateY(-4px)}
+.testi-stars{color:#f59e0b;font-size:1rem;letter-spacing:2px}
+.testi-quote{font-size:.95rem;color:var(--text-2);line-height:1.8;flex:1}
+.testi-author{display:flex;align-items:center;gap:12px;padding-top:12px;border-top:1px solid var(--border)}
+.testi-avatar{width:42px;height:42px;border-radius:50%;background:var(--cyan-10);border:2px solid var(--cyan-20);display:flex;align-items:center;justify-content:center;font-size:1.1rem;flex-shrink:0}
+.testi-name{font-size:.88rem;font-weight:700;color:var(--text)}
+.testi-role{font-size:.78rem;color:var(--text-3);line-height:1.4}
+
+/* ── Pricing ─────────────────────────────────────────────────────────── */
+.pricing{background:var(--bg-1)}
+.pricing-wrap{display:flex;justify-content:center}
+.pricing-card{background:var(--bg-card);border:1px solid var(--cyan-20);border-radius:20px;padding:40px;width:100%;max-width:520px;box-shadow:0 0 80px rgba(0,229,255,.06);position:relative;overflow:hidden}
+.pricing-card::before{content:'';position:absolute;inset-block-start:0;inset-inline:0;height:3px;background:linear-gradient(90deg,var(--cyan),var(--orange))}
+.pricing-plan-label{font-size:.78rem;font-weight:700;color:var(--cyan);letter-spacing:1px;text-transform:uppercase;margin-bottom:16px}
+.pricing-price-row{display:flex;align-items:flex-end;gap:10px;margin-bottom:6px}
+.price-big{font-size:2.8rem;font-weight:700;color:var(--text);line-height:1}
+.price-period{font-size:1rem;color:var(--text-3);margin-bottom:6px}
+.price-tagline{font-size:.85rem;color:var(--orange);margin-bottom:28px;font-weight:500}
+.pricing-features{display:flex;flex-direction:column;gap:12px;margin-bottom:32px}
+.pf-item{display:flex;align-items:flex-start;gap:10px;font-size:.92rem;color:var(--text-2)}
+.pf-check{color:var(--cyan);font-weight:700;flex-shrink:0;margin-top:2px}
+.btn-pricing{display:block;width:100%;text-align:center;background:linear-gradient(135deg,var(--cyan),#00b8d4);color:#070b12;font-size:1.05rem;font-weight:700;padding:16px 28px;border-radius:10px;border:none;transition:all .25s;box-shadow:0 0 32px var(--cyan-20)}
+.btn-pricing:hover{transform:translateY(-2px);box-shadow:0 0 48px var(--cyan-30)}
+.pricing-note{font-size:.78rem;color:var(--text-3);text-align:center;margin-top:12px}
+
+/* ── FAQ ─────────────────────────────────────────────────────────────── */
+.faq{background:var(--bg-0)}
+.faq-list{max-width:760px;margin-inline:auto;display:flex;flex-direction:column;gap:12px}
+.faq-item{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;transition:border-color .25s}
+.faq-item.open{border-color:var(--cyan-20)}
+.faq-q{width:100%;display:flex;align-items:center;justify-content:space-between;gap:16px;background:none;border:none;color:var(--text);font-size:.95rem;font-weight:600;padding:18px 22px;text-align:inherit;cursor:pointer;transition:color .25s}
+.faq-q:hover{color:var(--cyan)}
+.faq-arrow{font-size:.9rem;color:var(--text-3);transition:transform .3s,color .3s;flex-shrink:0}
+.faq-item.open .faq-arrow{transform:rotate(180deg);color:var(--cyan)}
+.faq-a{max-height:0;overflow:hidden;transition:max-height .4s ease}
+.faq-a-inner{padding:0 22px 18px;font-size:.9rem;color:var(--text-2);line-height:1.8}
+.faq-item.open .faq-a{max-height:200px}
+
+/* ── Email Capture ───────────────────────────────────────────────────── */
+.email-capture{background:var(--bg-1);position:relative;overflow:hidden}
+.email-capture-bg{position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 50% 50%,rgba(0,229,255,.05) 0%,transparent 70%)}
+.email-capture-inner{position:relative;text-align:center}
+.cta-big{font-size:clamp(1.8rem,4vw,2.8rem);font-weight:700;color:var(--text);margin-bottom:12px;line-height:1.3}
+.cta-big em{font-style:normal;color:var(--orange)}
+.cta-sub{font-size:1rem;color:var(--text-2);margin-bottom:36px}
+.email-form{display:flex;flex-direction:column;gap:12px;max-width:500px;margin-inline:auto}
+@media(min-width:600px){.email-form{flex-direction:row}}
+#capture-input{flex:1;background:var(--bg-card);border:1px solid var(--border);border-radius:10px;color:var(--text);font-size:.95rem;font-family:var(--font);padding:14px 18px;outline:none;transition:border-color .25s}
+#capture-input::placeholder{color:var(--text-3)}
+#capture-input:focus{border-color:var(--cyan)}
+.btn-capture{background:var(--orange);color:white;font-size:.95rem;font-weight:700;padding:14px 22px;border-radius:10px;border:none;white-space:nowrap;transition:all .25s;font-family:var(--font)}
+.btn-capture:hover{background:#ff5218;transform:translateY(-2px);box-shadow:0 8px 32px rgba(255,107,53,.3)}
+.capture-success{display:none;background:var(--green-10);border:1px solid rgba(34,197,94,.3);color:var(--green);font-size:.9rem;font-weight:600;padding:14px 20px;border-radius:10px;max-width:500px;margin-inline:auto;text-align:center}
+.capture-success.show{display:block}
+.join-count{font-size:.82rem;color:var(--text-3);margin-top:18px}
+.join-count strong{color:var(--cyan)}
+
+/* ── Footer ──────────────────────────────────────────────────────────── */
+footer{background:var(--bg-0);border-top:1px solid var(--border);padding-block:28px}
+.footer-inner{display:flex;flex-direction:column;gap:12px;align-items:center;text-align:center}
+@media(min-width:600px){.footer-inner{flex-direction:row;justify-content:space-between;text-align:start}}
+.footer-logo{font-size:1.1rem;font-weight:700;color:var(--text-2)}
+.footer-logo .ai-badge{color:var(--cyan)}
+.footer-info{font-size:.82rem;color:var(--text-3)}
+.footer-info a{color:var(--text-3);transition:color .2s}
+.footer-info a:hover{color:var(--cyan)}
+
+/* ── Divider ─────────────────────────────────────────────────────────── */
+.divider{height:1px;background:var(--border);margin-block:0}
+
+/* ── Scrollbar ───────────────────────────────────────────────────────── */
+::-webkit-scrollbar{width:6px}
+::-webkit-scrollbar-track{background:var(--bg-0)}
+::-webkit-scrollbar-thumb{background:var(--bg-2);border-radius:3px}
+::-webkit-scrollbar-thumb:hover{background:var(--cyan-20)}
+
+/* ── Selection ───────────────────────────────────────────────────────── */
+::selection{background:var(--cyan-20);color:var(--text)}
+
+/* ── LTR Overrides ───────────────────────────────────────────────────── */
+[dir="ltr"] .comp-bar{animation:grow-bar-ltr 1.2s ease forwards}
+@keyframes grow-bar-ltr{from{width:0}}
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════════════════════
+     HEADER
+════════════════════════════════════════════════════════════ -->
+<header>
+  <div class="container header-inner">
+    <div class="logo">
+      أمان <span class="ai-badge">AI</span>
+    </div>
+    <button id="lang-btn" onclick="toggleLang()">English</button>
+  </div>
+</header>
+
+<!-- ═══════════════════════════════════════════════════════════
+     SECTION 1 — HERO
+════════════════════════════════════════════════════════════ -->
+<section class="hero" id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div class="container">
+    <div class="hero-inner">
+
+      <!-- Content -->
+      <div class="hero-content">
+        <div class="urgency-badge aos" data-key="urgencyBadge">⚠️ غرامات عدم الامتثال تصل لـ 100,000 ريال</div>
+        <h1 class="aos aos-delay-1">
+          <span data-key="heroH1a">هل منشأتك جاهزة لتفتيش</span>
+          <em data-key="heroH1b"> الدفاع المدني </em>
+          <span data-key="heroH1c">ووزارة الموارد البشرية؟</span>
+        </h1>
+        <p class="hero-sub aos aos-delay-2" data-key="heroSub">
+          أمان AI يعرف اشتراطات الدفاع المدني ولوائح السلامة المهنية — ويساعدك تحضّر قبل ما يجي المفتش
+        </p>
+        <div class="hero-ctas aos aos-delay-3">
+          <button class="btn-primary" onclick="scrollToCapture()" data-key="heroCta">احصل على تقييم مجاني للامتثال</button>
+          <span class="cta-note" data-key="heroCtaNote">يستغرق 3 دقائق فقط</span>
+        </div>
+      </div>
+
+      <!-- Visual -->
+      <div class="hero-visual aos aos-delay-2">
+        <div class="compliance-card">
+          <div class="compliance-card-header">
+            <span class="card-logo" data-key="cardLogo">أمان AI Dashboard</span>
+            <span class="card-status">
+              <span class="dot-live"></span>
+              <span data-key="cardLive">مباشر</span>
+            </span>
+          </div>
+
+          <div class="compliance-rows">
+            <div class="comp-row">
+              <div class="comp-row-info">
+                <span class="comp-icon">🔴</span>
+                <div class="comp-label">
+                  <strong data-key="cardCd">الدفاع المدني</strong>
+                  <div data-key="cardCdSub">تفتيش قادم</div>
+                </div>
+              </div>
+              <div>
+                <div class="comp-pct">78%</div>
+                <div class="comp-bar-wrap"><div class="comp-bar" style="width:78%"></div></div>
+              </div>
+            </div>
+
+            <div class="comp-row">
+              <div class="comp-row-info">
+                <span class="comp-icon">🟢</span>
+                <div class="comp-label">
+                  <strong data-key="cardHr">وزارة الموارد البشرية</strong>
+                  <div data-key="cardHrSub">مطابق جزئياً</div>
+                </div>
+              </div>
+              <div>
+                <div class="comp-pct">91%</div>
+                <div class="comp-bar-wrap"><div class="comp-bar" style="width:91%"></div></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="ai-chat-preview">
+            <div class="chat-q" data-key="chatQ">🤖 سؤال:</div>
+            <div class="chat-a" data-key="chatA">كم طفاية حريق مطلوبة لمستودع 500م²؟<span class="chat-cursor"></span></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════
+     SECTION 2 — PAIN POINTS
+════════════════════════════════════════════════════════════ -->
+<section class="pain-points" id="pain">
+  <div class="container">
+    <div class="section-label aos">⚡ <span data-key="painLabel">التحديات</span></div>
+    <h2 class="section-title aos" data-key="painTitle">المشاكل التي يحلّها أمان AI</h2>
+    <p class="section-sub aos" data-key="painSub">ثلاثة تحديات يواجهها كل مدير سلامة في السعودية</p>
+
+    <div class="pain-grid">
+
+      <div class="pain-card aos aos-delay-1">
+        <div class="pain-card-top">
+          <span class="pain-icon">🚨</span>
+          <span class="pain-tag" data-key="p1Tag">الدفاع المدني</span>
+        </div>
+        <h3 data-key="p1Title">تفتيش مفاجئ؟</h3>
+        <p data-key="p1Text">اشتراطات الحريق معقدة ومتغيرة — طفايات، مخارج طوارئ، لوحات إرشادية، سجلات صيانة. أمان AI يعرفها كلها.</p>
+      </div>
+
+      <div class="pain-card aos aos-delay-2">
+        <div class="pain-card-top">
+          <span class="pain-icon">📋</span>
+          <span class="pain-tag" data-key="p2Tag">وزارة الموارد البشرية</span>
+        </div>
+        <h3 data-key="p2Title">مخالفة نظام العمل؟</h3>
+        <p data-key="p2Text">متطلبات السلامة المهنية في نظام العمل السعودي — سجلات الحوادث، خطط الطوارئ، تدريب الموظفين. كلها موثقة داخل الـ AI.</p>
+      </div>
+
+      <div class="pain-card aos aos-delay-3">
+        <div class="pain-card-top">
+          <span class="pain-icon">💸</span>
+          <span class="pain-tag" data-key="p3Tag">الوقت والتكلفة</span>
+        </div>
+        <h3 data-key="p3Title">استشاري السلامة غالي؟</h3>
+        <p data-key="p3Text">الاشتراك الشهري بـ أمان AI أقل من ساعة واحدة من وقت مستشار خارجي.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════
+     SECTION 3 — FEATURES (4 STEPS)
+════════════════════════════════════════════════════════════ -->
+<section class="features" id="features">
+  <div class="container">
+    <div class="section-label aos">⚙️ <span data-key="featLabel">كيف يعمل</span></div>
+    <h2 class="section-title aos" data-key="featTitle">كيف يعمل أمان AI؟</h2>
+    <p class="section-sub aos" data-key="featSub">أربع خطوات لتحويل الامتثال من عبء إلى ميزة</p>
+
+    <div class="steps-grid">
+
+      <div class="step-card aos aos-delay-1">
+        <div class="step-num" data-key="step1Num">الخطوة 01</div>
+        <h3 data-key="step1Title">يجيب أسئلتك عن اشتراطات الدفاع المدني فوراً</h3>
+        <div class="step-example" data-key="step1Ex">مثال: "كم عدد طفايات الحريق المطلوبة لمستودع مساحته 500م²؟"</div>
+      </div>
+
+      <div class="step-card aos aos-delay-2">
+        <div class="step-num" data-key="step2Num">الخطوة 02</div>
+        <h3 data-key="step2Title">يولّد قوائم التحقق الجاهزة للتفتيش</h3>
+        <div class="step-example" data-key="step2Ex">مخصصة لنوع منشأتك — مكتب، مستودع، مصنع، مطعم</div>
+      </div>
+
+      <div class="step-card aos aos-delay-3">
+        <div class="step-num" data-key="step3Num">الخطوة 03</div>
+        <h3 data-key="step3Title">يكتب سجلات الحوادث بصيغة وزارة الموارد البشرية</h3>
+        <div class="step-example" data-key="step3Ex">جاهزة للرفع الإلكتروني على منصة مساند وMusaned</div>
+      </div>
+
+      <div class="step-card aos aos-delay-4">
+        <div class="step-num" data-key="step4Num">الخطوة 04</div>
+        <h3 data-key="step4Title">يحدد النواقص في خطة الطوارئ الخاصة بك</h3>
+        <div class="step-example" data-key="step4Ex">ويقترح التصحيحات قبل التفتيش</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════
+     SECTION 4 — COVERAGE TABLE
+════════════════════════════════════════════════════════════ -->
+<section class="coverage" id="coverage">
+  <div class="container">
+    <div class="text-center">
+      <div class="section-label aos">📋 <span data-key="covLabel">التغطية</span></div>
+      <h2 class="section-title aos" data-key="covTitle">ماذا يغطي أمان AI؟</h2>
+      <p class="section-sub aos" data-key="covSub">تغطية شاملة للجهتين الرقابيتين الرئيسيتين</p>
+    </div>
+
+    <div class="coverage-grid">
+
+      <div class="coverage-col coverage-col-a aos aos-left">
+        <div class="cov-header">
+          <span class="cov-icon">🔴</span>
+          <span class="cov-title" data-key="covATitle">الدفاع المدني</span>
+        </div>
+        <div class="cov-items">
+          <div class="cov-item"><span class="cov-check-a">✓</span><span data-key="cdI1">اشتراطات طفايات الحريق</span></div>
+          <div class="cov-item"><span class="cov-check-a">✓</span><span data-key="cdI2">متطلبات مخارج الطوارئ</span></div>
+          <div class="cov-item"><span class="cov-check-a">✓</span><span data-key="cdI3">لوحات الإرشاد والإخلاء</span></div>
+          <div class="cov-item"><span class="cov-check-a">✓</span><span data-key="cdI4">أنظمة الإنذار والإطفاء</span></div>
+          <div class="cov-item"><span class="cov-check-a">✓</span><span data-key="cdI5">سجلات الصيانة الدورية</span></div>
+          <div class="cov-item"><span class="cov-check-a">✓</span><span data-key="cdI6">شروط تخزين المواد الخطرة</span></div>
+        </div>
+      </div>
+
+      <div class="coverage-col coverage-col-b aos aos-right">
+        <div class="cov-header">
+          <span class="cov-icon">🟢</span>
+          <span class="cov-title" data-key="covBTitle">وزارة الموارد البشرية</span>
+        </div>
+        <div class="cov-items">
+          <div class="cov-item"><span class="cov-check-b">✓</span><span data-key="hrI1">نظام السلامة والصحة المهنية</span></div>
+          <div class="cov-item"><span class="cov-check-b">✓</span><span data-key="hrI2">متطلبات تدريب الموظفين</span></div>
+          <div class="cov-item"><span class="cov-check-b">✓</span><span data-key="hrI3">سجلات الحوادث والإصابات</span></div>
+          <div class="cov-item"><span class="cov-check-b">✓</span><span data-key="hrI4">خطط الطوارئ المعتمدة</span></div>
+          <div class="cov-item"><span class="cov-check-b">✓</span><span data-key="hrI5">بيئة العمل ومعايير الحرارة</span></div>
+          <div class="cov-item"><span class="cov-check-b">✓</span><span data-key="hrI6">معدات الوقاية الشخصية (PPE)</span></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════
+     SECTION 5 — TESTIMONIALS
+════════════════════════════════════════════════════════════ -->
+<section class="testimonials" id="testimonials">
+  <div class="container">
+    <div class="text-center">
+      <div class="section-label aos">💬 <span data-key="testiLabel">آراء العملاء</span></div>
+      <h2 class="section-title aos" data-key="testiTitle">ماذا يقول عملاؤنا؟</h2>
+    </div>
+
+    <div class="testi-grid">
+
+      <div class="testi-card aos aos-delay-1">
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-quote" data-key="t1Quote">"كنا نستعد للتفتيش ثلاثة أسابيع. مع أمان AI صار يومين."</p>
+        <div class="testi-author">
+          <div class="testi-avatar">👷</div>
+          <div>
+            <div class="testi-name" data-key="t1Name">محمد العتيبي</div>
+            <div class="testi-role" data-key="t1Role">مدير السلامة، شركة مقاولات بالرياض</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="testi-card aos aos-delay-2">
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-quote" data-key="t2Quote">"وفّر علينا استشاري خارجي كنا ندفع له 8,000 ريال شهرياً"</p>
+        <div class="testi-author">
+          <div class="testi-avatar">👩‍💼</div>
+          <div>
+            <div class="testi-name" data-key="t2Name">سارة الغامدي</div>
+            <div class="testi-role" data-key="t2Role">مديرة موارد بشرية، مستشفى خاص بجدة</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="testi-card aos aos-delay-3">
+        <div class="testi-stars">★★★★★</div>
+        <p class="testi-quote" data-key="t3Quote">"المفتش جاء وكل شيء كان جاهز. أول مرة ما نحصل مخالفة"</p>
+        <div class="testi-author">
+          <div class="testi-avatar">🍽️</div>
+          <div>
+            <div class="testi-name" data-key="t3Name">فهد الدوسري</div>
+            <div class="testi-role" data-key="t3Role">صاحب مطعم، الدمام</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════
+     SECTION 6 — PRICING
+════════════════════════════════════════════════════════════ -->
+<section class="pricing" id="pricing">
+  <div class="container">
+    <div class="text-center">
+      <div class="section-label aos">💎 <span data-key="priceLabel">التسعير</span></div>
+      <h2 class="section-title aos" data-key="priceTitle">سعر واضح، بدون مفاجآت</h2>
+    </div>
+
+    <div class="pricing-wrap aos">
+      <div class="pricing-card">
+        <div class="pricing-plan-label" data-key="pricePlan">الاشتراك الشهري</div>
+        <div class="pricing-price-row">
+          <span class="price-big" data-key="priceBig">299</span>
+          <span class="price-period" data-key="pricePeriod">ريال / شهر</span>
+        </div>
+        <div class="price-tagline" data-key="priceTagline">⚠️ أقل من تكلفة مخالفة واحدة</div>
+
+        <div class="pricing-features">
+          <div class="pf-item"><span class="pf-check">✓</span><span data-key="pf1">أسئلة غير محدودة عن لوائح الدفاع المدني</span></div>
+          <div class="pf-item"><span class="pf-check">✓</span><span data-key="pf2">أسئلة غير محدودة عن وزارة الموارد البشرية</span></div>
+          <div class="pf-item"><span class="pf-check">✓</span><span data-key="pf3">قوائم تحقق جاهزة لنوع منشأتك</span></div>
+          <div class="pf-item"><span class="pf-check">✓</span><span data-key="pf4">تحديث فوري عند تغيير اللوائح</span></div>
+          <div class="pf-item"><span class="pf-check">✓</span><span data-key="pf5">دعم عبر واتساب</span></div>
+        </div>
+
+        <button class="btn-pricing" onclick="scrollToCapture()" data-key="priceCta">ابدأ تجربة 14 يوم مجانية</button>
+        <p class="pricing-note" data-key="priceNote">لا يلزم بطاقة ائتمان • إلغاء في أي وقت</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════
+     SECTION 7 — FAQ
+════════════════════════════════════════════════════════════ -->
+<section class="faq" id="faq">
+  <div class="container">
+    <div class="text-center">
+      <div class="section-label aos">❓ <span data-key="faqLabel">الأسئلة الشائعة</span></div>
+      <h2 class="section-title aos" data-key="faqTitle">الأسئلة الشائعة</h2>
+    </div>
+
+    <div class="faq-list aos">
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          <span data-key="fq1">هل هو بديل عن مختص السلامة المعتمد؟</span>
+          <span class="faq-arrow">▼</span>
+        </button>
+        <div class="faq-a">
+          <div class="faq-a-inner" data-key="fa1">لا. هو أداة مساعدة توفّر وقتك وتحضّرك. القرار النهائي يبقى لمختص معتمد.</div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          <span data-key="fq2">هل اللوائح محدّثة؟</span>
+          <span class="faq-arrow">▼</span>
+        </button>
+        <div class="faq-a">
+          <div class="faq-a-inner" data-key="fa2">نعم، نتابع التحديثات الرسمية من الدفاع المدني ووزارة الموارد البشرية باستمرار.</div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          <span data-key="fq3">ما أنواع المنشآت التي يدعمها؟</span>
+          <span class="faq-arrow">▼</span>
+        </button>
+        <div class="faq-a">
+          <div class="faq-a-inner" data-key="fa3">مكاتب، مستودعات، مطاعم، مصانع، مستشفيات، فنادق، مراكز تجارية.</div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          <span data-key="fq4">كيف أبدأ؟</span>
+          <span class="faq-arrow">▼</span>
+        </button>
+        <div class="faq-a">
+          <div class="faq-a-inner" data-key="fa4">سجّل بريدك الإلكتروني، وستصلك رابط الوصول فوراً.</div>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          <span data-key="fq5">هل بياناتي آمنة؟</span>
+          <span class="faq-arrow">▼</span>
+        </button>
+        <div class="faq-a">
+          <div class="faq-a-inner" data-key="fa5">نعم، لا نشارك أي بيانات مع جهات خارجية.</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════
+     SECTION 8 — EMAIL CAPTURE
+════════════════════════════════════════════════════════════ -->
+<section class="email-capture" id="capture">
+  <div class="email-capture-bg"></div>
+  <div class="container email-capture-inner">
+    <h2 class="cta-big aos">
+      <span data-key="ctaBig1">ابدأ قبل أن يجي </span><em data-key="ctaBig2">المفتش</em>
+    </h2>
+    <p class="cta-sub aos" data-key="ctaSub">سجّل الآن واحصل على وصول فوري لتجربة 14 يوم مجانية</p>
+
+    <form class="email-form aos" onsubmit="handleCapture(event)">
+      <input
+        type="text"
+        id="capture-input"
+        data-placeholder-ar="البريد الإلكتروني أو رقم الواتساب"
+        data-placeholder-en="Email or WhatsApp number"
+        placeholder="البريد الإلكتروني أو رقم الواتساب"
+        autocomplete="email"
+        required
+      >
+      <button type="submit" class="btn-capture" data-key="ctaBtn">أرسل لي رابط الوصول المجاني</button>
+    </form>
+
+    <div class="capture-success" id="capture-success">
+      <span data-key="ctaSuccess">✓ تم الإرسال — سنتواصل معك خلال ساعة</span>
+    </div>
+
+    <p class="join-count" id="join-count">
+      <span data-key="joinPre">انضم </span><strong id="join-num">—</strong><span data-key="joinPost"> شخص هذا الأسبوع</span>
+    </p>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════
+     FOOTER
+════════════════════════════════════════════════════════════ -->
+<footer>
+  <div class="container footer-inner">
+    <div class="footer-logo">أمان <span class="ai-badge">AI</span></div>
+    <div class="footer-info" data-key="footerInfo">
+      © 2026 أمان AI | <a href="mailto:info@amaanai.com">info@amaanai.com</a> | الرياض، المملكة العربية السعودية
+    </div>
+  </div>
+</footer>
+
+<!-- ═══════════════════════════════════════════════════════════
+     JAVASCRIPT
+════════════════════════════════════════════════════════════ -->
+<script>
+/* ── Translations ─────────────────────────────────────────────────────── */
+const T = {
+  ar: {
+    langBtn: 'English',
+    urgencyBadge: '⚠️ غرامات عدم الامتثال تصل لـ 100,000 ريال',
+    heroH1a: 'هل منشأتك جاهزة لتفتيش',
+    heroH1b: ' الدفاع المدني ',
+    heroH1c: 'ووزارة الموارد البشرية؟',
+    heroSub: 'أمان AI يعرف اشتراطات الدفاع المدني ولوائح السلامة المهنية — ويساعدك تحضّر قبل ما يجي المفتش',
+    heroCta: 'احصل على تقييم مجاني للامتثال',
+    heroCtaNote: 'يستغرق 3 دقائق فقط',
+    cardLogo: 'أمان AI Dashboard',
+    cardLive: 'مباشر',
+    cardCd: 'الدفاع المدني',
+    cardCdSub: 'تفتيش قادم',
+    cardHr: 'وزارة الموارد البشرية',
+    cardHrSub: 'مطابق جزئياً',
+    chatQ: '🤖 سؤال:',
+    chatA: 'كم طفاية حريق مطلوبة لمستودع 500م²؟',
+    painLabel: 'التحديات',
+    painTitle: 'المشاكل التي يحلّها أمان AI',
+    painSub: 'ثلاثة تحديات يواجهها كل مدير سلامة في السعودية',
+    p1Tag: 'الدفاع المدني',
+    p1Title: 'تفتيش مفاجئ؟',
+    p1Text: 'اشتراطات الحريق معقدة ومتغيرة — طفايات، مخارج طوارئ، لوحات إرشادية، سجلات صيانة. أمان AI يعرفها كلها.',
+    p2Tag: 'وزارة الموارد البشرية',
+    p2Title: 'مخالفة نظام العمل؟',
+    p2Text: 'متطلبات السلامة المهنية في نظام العمل السعودي — سجلات الحوادث، خطط الطوارئ، تدريب الموظفين. كلها موثقة داخل الـ AI.',
+    p3Tag: 'الوقت والتكلفة',
+    p3Title: 'استشاري السلامة غالي؟',
+    p3Text: 'الاشتراك الشهري بـ أمان AI أقل من ساعة واحدة من وقت مستشار خارجي.',
+    featLabel: 'كيف يعمل',
+    featTitle: 'كيف يعمل أمان AI؟',
+    featSub: 'أربع خطوات لتحويل الامتثال من عبء إلى ميزة',
+    step1Num: 'الخطوة 01',
+    step1Title: 'يجيب أسئلتك عن اشتراطات الدفاع المدني فوراً',
+    step1Ex: 'مثال: "كم عدد طفايات الحريق المطلوبة لمستودع مساحته 500م²؟"',
+    step2Num: 'الخطوة 02',
+    step2Title: 'يولّد قوائم التحقق الجاهزة للتفتيش',
+    step2Ex: 'مخصصة لنوع منشأتك — مكتب، مستودع، مصنع، مطعم',
+    step3Num: 'الخطوة 03',
+    step3Title: 'يكتب سجلات الحوادث بصيغة وزارة الموارد البشرية',
+    step3Ex: 'جاهزة للرفع الإلكتروني على منصة مساند وMusaned',
+    step4Num: 'الخطوة 04',
+    step4Title: 'يحدد النواقص في خطة الطوارئ الخاصة بك',
+    step4Ex: 'ويقترح التصحيحات قبل التفتيش',
+    covLabel: 'التغطية',
+    covTitle: 'ماذا يغطي أمان AI؟',
+    covSub: 'تغطية شاملة للجهتين الرقابيتين الرئيسيتين',
+    covATitle: 'الدفاع المدني',
+    covBTitle: 'وزارة الموارد البشرية',
+    cdI1: 'اشتراطات طفايات الحريق',
+    cdI2: 'متطلبات مخارج الطوارئ',
+    cdI3: 'لوحات الإرشاد والإخلاء',
+    cdI4: 'أنظمة الإنذار والإطفاء',
+    cdI5: 'سجلات الصيانة الدورية',
+    cdI6: 'شروط تخزين المواد الخطرة',
+    hrI1: 'نظام السلامة والصحة المهنية',
+    hrI2: 'متطلبات تدريب الموظفين',
+    hrI3: 'سجلات الحوادث والإصابات',
+    hrI4: 'خطط الطوارئ المعتمدة',
+    hrI5: 'بيئة العمل ومعايير الحرارة',
+    hrI6: 'معدات الوقاية الشخصية (PPE)',
+    testiLabel: 'آراء العملاء',
+    testiTitle: 'ماذا يقول عملاؤنا؟',
+    t1Quote: '"كنا نستعد للتفتيش ثلاثة أسابيع. مع أمان AI صار يومين."',
+    t1Name: 'محمد العتيبي',
+    t1Role: 'مدير السلامة، شركة مقاولات بالرياض',
+    t2Quote: '"وفّر علينا استشاري خارجي كنا ندفع له 8,000 ريال شهرياً"',
+    t2Name: 'سارة الغامدي',
+    t2Role: 'مديرة موارد بشرية، مستشفى خاص بجدة',
+    t3Quote: '"المفتش جاء وكل شيء كان جاهز. أول مرة ما نحصل مخالفة"',
+    t3Name: 'فهد الدوسري',
+    t3Role: 'صاحب مطعم، الدمام',
+    priceLabel: 'التسعير',
+    priceTitle: 'سعر واضح، بدون مفاجآت',
+    pricePlan: 'الاشتراك الشهري',
+    priceBig: '299',
+    pricePeriod: 'ريال / شهر',
+    priceTagline: '⚠️ أقل من تكلفة مخالفة واحدة',
+    pf1: 'أسئلة غير محدودة عن لوائح الدفاع المدني',
+    pf2: 'أسئلة غير محدودة عن وزارة الموارد البشرية',
+    pf3: 'قوائم تحقق جاهزة لنوع منشأتك',
+    pf4: 'تحديث فوري عند تغيير اللوائح',
+    pf5: 'دعم عبر واتساب',
+    priceCta: 'ابدأ تجربة 14 يوم مجانية',
+    priceNote: 'لا يلزم بطاقة ائتمان • إلغاء في أي وقت',
+    faqLabel: 'الأسئلة الشائعة',
+    faqTitle: 'الأسئلة الشائعة',
+    fq1: 'هل هو بديل عن مختص السلامة المعتمد؟',
+    fa1: 'لا. هو أداة مساعدة توفّر وقتك وتحضّرك. القرار النهائي يبقى لمختص معتمد.',
+    fq2: 'هل اللوائح محدّثة؟',
+    fa2: 'نعم، نتابع التحديثات الرسمية من الدفاع المدني ووزارة الموارد البشرية باستمرار.',
+    fq3: 'ما أنواع المنشآت التي يدعمها؟',
+    fa3: 'مكاتب، مستودعات، مطاعم، مصانع، مستشفيات، فنادق، مراكز تجارية.',
+    fq4: 'كيف أبدأ؟',
+    fa4: 'سجّل بريدك الإلكتروني، وستصلك رابط الوصول فوراً.',
+    fq5: 'هل بياناتي آمنة؟',
+    fa5: 'نعم، لا نشارك أي بيانات مع جهات خارجية.',
+    ctaBig1: 'ابدأ قبل أن يجي ',
+    ctaBig2: 'المفتش',
+    ctaSub: 'سجّل الآن واحصل على وصول فوري لتجربة 14 يوم مجانية',
+    ctaBtn: 'أرسل لي رابط الوصول المجاني',
+    ctaSuccess: '✓ تم الإرسال — سنتواصل معك خلال ساعة',
+    joinPre: 'انضم ',
+    joinPost: ' شخص هذا الأسبوع',
+    footerInfo: '© 2026 أمان AI | info@amaanai.com | الرياض، المملكة العربية السعودية',
+  },
+  en: {
+    langBtn: 'عربي',
+    urgencyBadge: '⚠️ Non-compliance fines can reach SAR 100,000',
+    heroH1a: 'Is Your Facility Ready for',
+    heroH1b: ' Civil Defense ',
+    heroH1c: '& Ministry of Human Resources Inspection?',
+    heroSub: 'Amaan AI knows Civil Defense fire safety requirements and occupational safety regulations — helping you prepare before the inspector arrives',
+    heroCta: 'Get a Free Compliance Assessment',
+    heroCtaNote: 'Takes only 3 minutes',
+    cardLogo: 'Amaan AI Dashboard',
+    cardLive: 'Live',
+    cardCd: 'Civil Defense',
+    cardCdSub: 'Upcoming Inspection',
+    cardHr: 'Ministry of Human Resources',
+    cardHrSub: 'Partially Compliant',
+    chatQ: '🤖 Question:',
+    chatA: 'How many fire extinguishers are required for a 500m² warehouse?',
+    painLabel: 'CHALLENGES',
+    painTitle: 'Problems Amaan AI Solves',
+    painSub: 'Three challenges faced by every safety manager in Saudi Arabia',
+    p1Tag: 'Civil Defense',
+    p1Title: 'Surprise Inspection?',
+    p1Text: 'Fire safety requirements are complex and changing — extinguishers, emergency exits, signage, maintenance logs. Amaan AI knows them all.',
+    p2Tag: 'Ministry of Human Resources',
+    p2Title: 'Labor Law Violation?',
+    p2Text: 'Occupational safety requirements under Saudi Labor Law — incident records, emergency plans, employee training. All documented inside the AI.',
+    p3Tag: 'Time & Cost',
+    p3Title: 'Safety Consultant Too Expensive?',
+    p3Text: 'Monthly subscription to Amaan AI costs less than one hour of an external consultant\'s time.',
+    featLabel: 'HOW IT WORKS',
+    featTitle: 'How Does Amaan AI Work?',
+    featSub: 'Four steps to turn compliance from a burden into an advantage',
+    step1Num: 'STEP 01',
+    step1Title: 'Answers Your Civil Defense Questions Instantly',
+    step1Ex: 'Example: "How many fire extinguishers are required for a 500m² warehouse?"',
+    step2Num: 'STEP 02',
+    step2Title: 'Generates Ready-to-Use Inspection Checklists',
+    step2Ex: 'Customized for your facility type — office, warehouse, factory, restaurant',
+    step3Num: 'STEP 03',
+    step3Title: 'Writes Incident Records in the Ministry of Human Resources Format',
+    step3Ex: 'Ready for electronic submission on the Musaned platform',
+    step4Num: 'STEP 04',
+    step4Title: 'Identifies Gaps in Your Emergency Plan',
+    step4Ex: 'And suggests corrections before inspection',
+    covLabel: 'COVERAGE',
+    covTitle: 'What Does Amaan AI Cover?',
+    covSub: 'Comprehensive coverage for both primary regulatory bodies',
+    covATitle: 'Civil Defense',
+    covBTitle: 'Ministry of Human Resources',
+    cdI1: 'Fire Extinguisher Requirements',
+    cdI2: 'Emergency Exit Requirements',
+    cdI3: 'Guidance & Evacuation Signage',
+    cdI4: 'Alarm & Suppression Systems',
+    cdI5: 'Periodic Maintenance Records',
+    cdI6: 'Hazardous Materials Storage Conditions',
+    hrI1: 'Occupational Safety & Health System',
+    hrI2: 'Employee Training Requirements',
+    hrI3: 'Incident & Injury Records',
+    hrI4: 'Approved Emergency Plans',
+    hrI5: 'Work Environment & Heat Standards',
+    hrI6: 'Personal Protective Equipment (PPE)',
+    testiLabel: 'TESTIMONIALS',
+    testiTitle: 'What Our Clients Say',
+    t1Quote: '"We used to spend three weeks preparing for inspection. With Amaan AI it became two days."',
+    t1Name: 'Mohammed Al-Otaibi',
+    t1Role: 'Safety Manager, Construction Company, Riyadh',
+    t2Quote: '"It saved us an external consultant we were paying SAR 8,000 per month"',
+    t2Name: 'Sarah Al-Ghamdi',
+    t2Role: 'HR Manager, Private Hospital, Jeddah',
+    t3Quote: '"The inspector came and everything was ready. First time we didn\'t get a violation"',
+    t3Name: 'Fahad Al-Dosari',
+    t3Role: 'Restaurant Owner, Dammam',
+    priceLabel: 'PRICING',
+    priceTitle: 'Clear Pricing, No Surprises',
+    pricePlan: 'Monthly Subscription',
+    priceBig: '299',
+    pricePeriod: 'SAR / month',
+    priceTagline: '⚠️ Less than the cost of one violation',
+    pf1: 'Unlimited questions about Civil Defense regulations',
+    pf2: 'Unlimited questions about Ministry of Human Resources regulations',
+    pf3: 'Ready-made checklists for your facility type',
+    pf4: 'Instant updates when regulations change',
+    pf5: 'WhatsApp support',
+    priceCta: 'Start 14-Day Free Trial',
+    priceNote: 'No credit card required • Cancel anytime',
+    faqLabel: 'FAQ',
+    faqTitle: 'Frequently Asked Questions',
+    fq1: 'Is it a replacement for a certified safety specialist?',
+    fa1: 'No. It\'s an assistive tool that saves your time and helps you prepare. The final decision remains with a certified specialist.',
+    fq2: 'Are the regulations up to date?',
+    fa2: 'Yes, we continuously monitor official updates from Civil Defense and the Ministry of Human Resources.',
+    fq3: 'What types of facilities does it support?',
+    fa3: 'Offices, warehouses, restaurants, factories, hospitals, hotels, commercial centers.',
+    fq4: 'How do I get started?',
+    fa4: 'Register your email, and you\'ll receive the access link immediately.',
+    fq5: 'Is my data secure?',
+    fa5: 'Yes, we do not share any data with third parties.',
+    ctaBig1: 'Start Before the Inspector ',
+    ctaBig2: 'Arrives',
+    ctaSub: 'Sign up now and get instant access to a 14-day free trial',
+    ctaBtn: 'Send Me Free Access Link',
+    ctaSuccess: '✓ Submitted — We\'ll contact you within an hour',
+    joinPre: '',
+    joinPost: ' people joined this week',
+    footerInfo: '© 2026 Amaan AI | info@amaanai.com | Riyadh, Saudi Arabia',
+  }
+};
+
+/* ── State ──────────────────────────────────────────────────────────── */
+let currentLang = 'ar';
+
+/* ── Language Toggle ────────────────────────────────────────────────── */
+function toggleLang() {
+  currentLang = currentLang === 'ar' ? 'en' : 'ar';
+  applyLang(currentLang);
+}
+
+function applyLang(lang) {
+  const dict = T[lang];
+  const html = document.documentElement;
+
+  html.lang = lang;
+  html.dir = lang === 'ar' ? 'rtl' : 'ltr';
+
+  document.getElementById('lang-btn').textContent = dict.langBtn;
+
+  // Update all [data-key] elements
+  document.querySelectorAll('[data-key]').forEach(el => {
+    const key = el.dataset.key;
+    if (dict[key] !== undefined) {
+      // Use textContent for safety — our values are plain text
+      el.textContent = dict[key];
+    }
+  });
+
+  // Update input placeholder separately (attribute, not textContent)
+  const input = document.getElementById('capture-input');
+  if (input) {
+    const attr = lang === 'ar' ? 'data-placeholder-ar' : 'data-placeholder-en';
+    input.placeholder = input.getAttribute(attr);
+  }
+
+  // Update footer link-containing cell using innerHTML (trusted content)
+  const footerInfo = document.querySelector('[data-key="footerInfo"]');
+  if (footerInfo) {
+    if (lang === 'en') {
+      footerInfo.innerHTML = '© 2026 Amaan AI | <a href="mailto:info@amaanai.com">info@amaanai.com</a> | Riyadh, Saudi Arabia';
+    } else {
+      footerInfo.innerHTML = '© 2026 أمان AI | <a href="mailto:info@amaanai.com">info@amaanai.com</a> | الرياض، المملكة العربية السعودية';
+    }
+  }
+
+  // Re-render the join count label after lang swap
+  renderJoinCount();
+}
+
+/* ── Scroll Animations (Intersection Observer) ──────────────────────── */
+const observerOpts = { threshold: 0.12 };
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    }
+  });
+}, observerOpts);
+
+document.querySelectorAll('.aos, .aos-left, .aos-right').forEach(el => {
+  observer.observe(el);
+});
+
+/* ── FAQ Accordion ──────────────────────────────────────────────────── */
+function toggleFaq(btn) {
+  const item = btn.closest('.faq-item');
+  const isOpen = item.classList.contains('open');
+  // Close all
+  document.querySelectorAll('.faq-item.open').forEach(i => i.classList.remove('open'));
+  // Toggle current
+  if (!isOpen) item.classList.add('open');
+}
+
+/* ── Scroll To Capture ──────────────────────────────────────────────── */
+function scrollToCapture() {
+  document.getElementById('capture').scrollIntoView({ behavior: 'smooth' });
+}
+
+/* ── LocalStorage Join Counter ──────────────────────────────────────── */
+const STORAGE_KEY = 'amaan_join_count';
+const BASE_SEED = 47; // organic-looking base
+
+function getJoinCount() {
+  const stored = localStorage.getItem(STORAGE_KEY);
+  return stored ? parseInt(stored, 10) : BASE_SEED;
+}
+
+function renderJoinCount() {
+  const num = getJoinCount();
+  document.getElementById('join-num').textContent = num;
+  const pre = document.querySelector('[data-key="joinPre"]');
+  const post = document.querySelector('[data-key="joinPost"]');
+  if (pre) pre.textContent = T[currentLang].joinPre;
+  if (post) post.textContent = T[currentLang].joinPost;
+}
+
+/* ── Form Submission ────────────────────────────────────────────────── */
+function handleCapture(e) {
+  e.preventDefault();
+  const input = document.getElementById('capture-input');
+  const val = input.value.trim();
+  if (!val) return;
+
+  // Store submission
+  const submissions = JSON.parse(localStorage.getItem('amaan_submissions') || '[]');
+  submissions.push({ value: val, ts: Date.now() });
+  localStorage.setItem('amaan_submissions', JSON.stringify(submissions));
+
+  // Increment counter
+  const newCount = getJoinCount() + 1;
+  localStorage.setItem(STORAGE_KEY, newCount);
+
+  // Show success
+  const successEl = document.getElementById('capture-success');
+  successEl.classList.add('show');
+  input.value = '';
+
+  // Update count display
+  document.getElementById('join-num').textContent = newCount;
+
+  // Hide success after 5s and re-show form
+  setTimeout(() => {
+    successEl.classList.remove('show');
+  }, 5000);
+}
+
+/* ── Init ───────────────────────────────────────────────────────────── */
+renderJoinCount();
+</script>
+
+</body>
+</html>
