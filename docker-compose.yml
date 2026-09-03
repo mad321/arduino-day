@@ -1,0 +1,23 @@
+version: '3.8'
+
+services:
+  haraj-scraper:
+    build: .
+    container_name: haraj-profit-scraper
+    environment:
+      - NODE_ENV=production
+      - FIRECRAWL_API_KEY=${FIRECRAWL_API_KEY}
+      - PROFIT_THRESHOLD=${PROFIT_THRESHOLD:-20}
+      - MIN_PRICE=${MIN_PRICE:-50}
+      - MAX_PRICE=${MAX_PRICE:-5000}
+      - SCRAPE_INTERVAL=${SCRAPE_INTERVAL:-3600000}
+      - MONITORED_CATEGORIES=${MONITORED_CATEGORIES:-electronics,furniture,cars,clothes,books}
+      - LOG_LEVEL=${LOG_LEVEL:-info}
+    volumes:
+      - ./haraj_listings.db:/app/haraj_listings.db
+    restart: unless-stopped
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
